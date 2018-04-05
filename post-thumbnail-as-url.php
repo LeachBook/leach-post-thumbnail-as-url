@@ -91,4 +91,33 @@ function blc_save_postdata($post_id){
 // On post save, save plugin's data
 add_action('save_post', 'blc_save_postdata', 10);
 
+// https://wordpress.stackexchange.com/questions/134014/how-do-i-change-modify-the-post-thumbnail-html-output
+function modify_post_thumbnail_html($html, $post_id, $post_thumbnail_id, $size, $attr) {
+    $id = get_post_thumbnail_id(); // gets the id of the current post_thumbnail (in the loop)
+    $src = wp_get_attachment_image_src($id, $size); // gets the image url specific to the passed in size (aka. custom image size)
+    $alt = get_the_title($id); // gets the post thumbnail title
+//    $class = $attr['class']; // gets classes passed to the post thumbnail, defined here for easier function access
 
+    // path of thumbnail URL
+    $thumbnail_url = "";
+    if($src[0] != "") {
+        $thumbnail_url = $src[0];
+    }
+    $meta_url = get_post_meta($post_id, '_thumbnail_url', true);
+    if(gettype($meta_url) != "unknown") {
+        $thumbnail_url = $meta_url;
+    }
+
+    // Check to see if a 'retina' class exists in the array when calling "the_post_thumbnail()", if so output different <img/> html
+    if ($thumbnail_url == "") {
+        return "";
+    }
+    if (strpos($class, 'retina') !== false) {
+        $html = '<img src="" alt="" data-src="' . $thumbnail_url . '" data-alt="' . $alt . '" class="' . $class . '" />';
+    } else {
+        $html = '<img src="' . $thumbnail_url. '" alt="' . $alt . /*'" class="' . $class .*/ '" />';
+    }
+
+    return $html;
+}
+add_filter('post_thumbnail_html', 'modify_post_thumbnail_html', 99, 5);
