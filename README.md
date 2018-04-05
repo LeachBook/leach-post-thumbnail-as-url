@@ -1,2 +1,2 @@
-# post-thumbnail-as-url
-WP Plugin: Post Thumbnail As URL
+# leach-post-thumbnail-as-url
+WP Plugin: Leach! Post Thumbnail As URL
