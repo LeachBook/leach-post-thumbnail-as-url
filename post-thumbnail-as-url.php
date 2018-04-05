@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Leach! Post Thumbnail As URL
-Plugin URI: https://blog.leach.tokyo/2018/04/04/leachpost-thumbnail-as-url/
+Plugin URI: https://github.com/LeachBook/leach-post-thumbnail-as-url
 Description: Post Thumbnail As not image, but URL
 Version: 1.0.0
 Author: niwatolli3 <niwatolli3@gmail.com>
